@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ContactService
@@ -20,25 +21,33 @@ class ContactService
         if ($byEmail) {
             foreach ($customers as $customer) {
                 if ($customer->email) {
+                    try {
                     Mail::send('emails.customerAppLink', ['customer' => $customer], function ($m) use ($customer) {
                         $m->from(config('settings.fromEmail'), config('settings.fromName'))
                             ->to($customer->email)
                             ->subject('Votre bon de restauration');
                     });
+                    } catch (\Exception $e) {
+                        Log::warning('Couldn\'t send email for customer ' . $customer->id . ' : ' . $e->getMessage());
+                    }
                 }
             }
         }
         if ($bySms) {
             foreach ($customers as $customer) {
                 if ($customer->phone_number) {
-                    $callrApi = new \CALLR\API\Client;
-                    $callrApi->setAuthCredentials('buddyweb_1', 'GDPyTf6AI0');
+                    try {
+                        $callrApi = new \CALLR\API\Client;
+                        $callrApi->setAuthCredentials('buddyweb_1', 'GDPyTf6AI0');
 
-                    $from = 'SMS'; // restricted API only allow SMS as sender
-                    $to = $customer->phone_number;
-                    $text = 'Bonjour ' . $customer->first_name . ' ' . $customer->last_name . ', suite à l\'irrégularité subie, vous bénéficiez d\'un bon de restauration. Cliquez sur le lien pour y accéder : ' . env('CUSTOMER_APP_URL') . '/?token=' . $customer->token;
+                        $from = 'SMS'; // restricted API only allow SMS as sender
+                        $to = $customer->phone_number;
+                        $text = 'Bonjour ' . $customer->first_name . ' ' . $customer->last_name . ', suite à l\'irrégularité subie, vous bénéficiez d\'un bon de restauration. Cliquez sur le lien pour y accéder : ' . env('CUSTOMER_APP_URL') . '/?token=' . $customer->token;
 
-                    $result = $callrApi->call('sms.send', [$from, $to, $text, null]);
+                        $result = $callrApi->call('sms.send', [$from, $to, $text, null]);
+                    } catch (\Exception $e) {
+                        Log::warning('Couldn\'t send SMS for customer ' . $customer->id . ' : ' . $e->getMessage());
+                    }
                 }
             }
         }

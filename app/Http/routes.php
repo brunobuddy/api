@@ -15,13 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// simulate flight delayed
+Route::post('/delay-flight', function () {
+    $customers = \App\Customer::all();
+    \App\Services\ContactService::sendCustomerAppLink($customers, true, true);
+    return "<h1>flight delayed</h1>";
+});
+
 // API
 Route::group(['prefix' => 'api'], function () {
     Route::resource('customers', 'CustomerController', ['only' => ['show', 'update']]);
 });
 
-// Test sendCustomerAppLink
-Route::get('/send-customer-app-link', function () {
-    $customers = \App\Customer::all();
-    return \App\Services\ContactService::sendCustomerAppLink($customers, true, true);
-});

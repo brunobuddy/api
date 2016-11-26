@@ -6,4 +6,5 @@
 
 return [
     'fromEmail' => 'noreply@airfrance.fr',
+    'fromName' => 'Air France',
 ];

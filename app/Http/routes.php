@@ -23,5 +23,5 @@ Route::group(['prefix' => 'api'], function () {
 // Test sendCustomerAppLink
 Route::get('/send-customer-app-link', function () {
     $customers = \App\Customer::all();
-    return \App\Services\ContactService::sendCustomerAppLink($customers, true, false);
+    return \App\Services\ContactService::sendCustomerAppLink($customers, true, true);
 });

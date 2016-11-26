@@ -18,6 +18,5 @@ Route::get('/', function () {
 // API
 Route::group(['prefix' => 'api'], function () {
 
-    Route::resource('customers', 'CustomerController', ['only' => ['show']]);
-
+    Route::resource('customers', 'CustomerController', ['only' => ['show', 'update']]);
 });

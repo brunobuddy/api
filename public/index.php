@@ -7,6 +7,10 @@
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  */
 
+// TMP for dev
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With" );
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader

@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 // API
 Route::group(['prefix' => 'api'], function () {
-
     Route::resource('customers', 'CustomerController', ['only' => ['show', 'update']]);
+});
+
+// Test sendCustomerAppLink
+Route::get('/send-customer-app-link', function () {
+    $customers = \App\Customer::all();
+    return \App\Services\ContactService::sendCustomerAppLink($customers, true, false);
 });

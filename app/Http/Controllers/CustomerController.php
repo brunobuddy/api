@@ -16,7 +16,7 @@ class CustomerController extends Controller
 
         // token validation
         if ($customer->token != Input::get('token')) {
-            return response()->json(false);
+            return abort(403, 'Invalid token');
         }
 
         return response()->json($customer);

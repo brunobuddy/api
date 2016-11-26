@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('flight_id');
             $table->string('email');
             $table->string('phone_number');
+            $table->double('amount');
             $table->string('token');
             $table->timestamps();
         });

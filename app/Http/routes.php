@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// API
+Route::group(['prefix' => 'api'], function () {
+
+    Route::resource('customers', 'CustomerController', ['only' => ['show']]);
+
+});

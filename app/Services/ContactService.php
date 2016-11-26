@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Mail;
 class ContactService
 {
     /*
-     * Envoie le lien de la CustomerApp aux Customers
+     * send Customer App Link to Customers by Email or SMS or both
      *
      * @param $customers array
      * @param byEmail boolean
      * @param bySms boolean
      *
      */
-    public static function sendCustomerAppLink($customers, $byEmail = null, $bySms = null)
+    public static function sendCustomerAppLink($customers, $byEmail = false, $bySms = false)
     {
 
         if ($byEmail) {

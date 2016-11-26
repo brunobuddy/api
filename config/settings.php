@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings de l'app
+ * App settings
  */
 
 return [

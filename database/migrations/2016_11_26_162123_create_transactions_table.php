@@ -16,7 +16,8 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')
-                ->references('id')->on('customers')
+                ->references('id')
+                ->on('customers')
                 ->onDelete('cascade');
             $table->double('amount');
             $table->timestamps();

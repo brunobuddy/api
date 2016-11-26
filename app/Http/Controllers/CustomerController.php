@@ -33,8 +33,8 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
         $transactionAmount = request('transaction_amount');
 
-        // On vérifie que le Customer a assez d'argent en cas de dépense
-        if ($transactionAmount < 0 && $customer->amount < $transactionAmount * -1) {
+        // We ensure that Customer has enough money if it's an expense
+        if ($transactionAmount < 0 && $customer->amount < abs($transactionAmount)) {
             return abort(403, 'Insufficient funds');
         }
 

@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::post('/delay-flight', function () {
     $customers = \App\Customer::all();
     \App\Services\ContactService::sendCustomerAppLink($customers, true, true);
-    return "<h1>flight delayed</h1>";
+    return "flight delayed";
 });
 
 // API

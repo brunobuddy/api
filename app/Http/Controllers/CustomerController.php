@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\Input;
 
 class CustomerController extends Controller
 {
-    public function show($id)
+    public function show($token)
     {
-        $customer = Customer::findOrFail($id);
-
-        // token validation
-        if ($customer->token != Input::get('token')) {
-            return abort(403, 'Invalid token');
+        $customer = Customer::whereToken($token)->first();
+        if (!$customer) {
+            return abort(403, 'Invalid customer');
         }
 
         return response()->json($customer);

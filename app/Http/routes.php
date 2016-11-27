@@ -24,6 +24,6 @@ Route::post('/delay-flight', function () {
 
 // API
 Route::group(['prefix' => 'api'], function () {
-    Route::resource('customers', 'CustomerController', ['only' => ['show', 'update']]);
+    Route::resource('customers', 'CustomerController', ['only' => ['show', 'store']]);
 });
 

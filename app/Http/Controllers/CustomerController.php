@@ -28,9 +28,14 @@ class CustomerController extends Controller
      *
      * @ returns updated Customer amount
      */
-    public function update($id)
+    public function store()
     {
-        $customer = Customer::findOrFail($id);
+
+        $customer = Customer::whereToken(request('token'))->first();
+        if (!$customer) {
+            return abort(403, 'Invalid customer');
+        }
+
         $transactionAmount = request('transaction_amount');
 
         // We ensure that Customer has enough money if it's an expense
